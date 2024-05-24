@@ -1,0 +1,28 @@
+{
+    "name": "fatrbaby/termite",
+    "description": "simple file & path toolkit",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fatrbaby\\Termite\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "fatrbaby",
+            "email": "mrfatr@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
