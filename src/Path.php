@@ -8,42 +8,44 @@ class Path
 {
     public static function join(string ...$paths): string
     {
-        if (count($paths) === 0) {
+        if (\count($paths) === 0) {
             return '';
         }
 
-        return implode(DIRECTORY_SEPARATOR, array_map(fn($path) => rtrim($path, '/'), $paths));
+        return \implode(DIRECTORY_SEPARATOR, \array_map(fn($path) => \rtrim($path, '/'), $paths));
     }
 
     public static function abs(string $path): string
     {
-        $absolute = realpath($path);
+        if (($absolute = \realpath($path)) !== false) {
+            return $absolute;
+        }
 
-        return $absolute === false ? $path : $absolute;
+        return $path;
     }
 
     public static function base(string $path): string
     {
-        return basename($path);
+        return \basename($path);
     }
 
     public static function dir(string $path, int $levels = 1): string
     {
-        return dirname($path, $levels);
+        return \dirname($path, $levels);
     }
 
     public static function extension(string $path): string
     {
-        return pathinfo($path, PATHINFO_EXTENSION);
+        return \pathinfo($path, PATHINFO_EXTENSION);
     }
 
     public static function getUserDirectory(): string
     {
-        if (false !== ($home = getenv('HOME'))) {
+        if (false !== ($home = \getenv('HOME'))) {
             return $home;
         }
 
-        if (\defined('PHP_WINDOWS_VERSION_BUILD') && false !== ($home = getenv('USERPROFILE'))) {
+        if (\defined('PHP_WINDOWS_VERSION_BUILD') && false !== ($home = \getenv('USERPROFILE'))) {
             return $home;
         }
 
