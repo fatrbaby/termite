@@ -8,6 +8,7 @@ it('join', function () {
     expect(Path::join('foo', 'bar'))->toBe('foo/bar')
         ->and(Path::join('foo', 'bar', 'baz'))->toBe('foo/bar/baz')
         ->and(Path::join('foo'))->toBe('foo')
+        ->and(Path::join('/foo/'))->toBe('/foo')
         ->and(Path::join('foo/', 'bar/', 'baz/'))->toBe('foo/bar/baz')
         ->and(Path::join())->toBeEmpty();
 });
@@ -40,5 +41,5 @@ it('extension', function () {
 });
 
 it('user home directory', function () {
-    expect(Path::getUserDirectory())->toBe('/Users/fatrbaby');
+    expect(Path::getUserDirectory())->toBe(getenv('HOME'));
 });

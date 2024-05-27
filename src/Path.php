@@ -12,10 +12,6 @@ class Path
             return '';
         }
 
-        if (count($paths) === 1) {
-            return $paths[0];
-        }
-
         return implode(DIRECTORY_SEPARATOR, array_map(fn($path) => rtrim($path, '/'), $paths));
     }
 
