@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Fatrbaby\Termite;
 
-class PathException extends \RuntimeException
-{
-}
+class PathException extends \RuntimeException {}

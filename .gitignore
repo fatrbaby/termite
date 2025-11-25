@@ -10,3 +10,5 @@ package.tar
 /.phpunit
 .DS_Store
 .idea
+.vscode
+pint

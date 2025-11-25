@@ -4,20 +4,34 @@ declare(strict_types=1);
 
 namespace Fatrbaby\Termite;
 
+use function array_map;
+use function basename;
+use function count;
+use function defined;
+use function dirname;
+use function function_exists;
+use function getenv;
+use function implode;
+use function pathinfo;
+use function posix_getpwuid;
+use function posix_getuid;
+use function realpath;
+use function rtrim;
+
 class Path
 {
     public static function join(string ...$paths): string
     {
-        if (\count($paths) === 0) {
+        if (count($paths) === 0) {
             return '';
         }
 
-        return \implode(DIRECTORY_SEPARATOR, \array_map(fn($path) => \rtrim($path, '/'), $paths));
+        return implode(DIRECTORY_SEPARATOR, array_map(fn ($path) => rtrim($path, '/'), $paths));
     }
 
     public static function abs(string $path): string
     {
-        if (($absolute = \realpath($path)) !== false) {
+        if (($absolute = realpath($path)) !== false) {
             return $absolute;
         }
 
@@ -26,17 +40,17 @@ class Path
 
     public static function base(string $path): string
     {
-        return \basename($path);
+        return basename($path);
     }
 
     public static function dir(string $path, int $levels = 1): string
     {
-        return \dirname($path, $levels);
+        return dirname($path, $levels);
     }
 
     public static function extension(string $path): string
     {
-        return \pathinfo($path, PATHINFO_EXTENSION);
+        return pathinfo($path, PATHINFO_EXTENSION);
     }
 
     public static function getUserDirectory(): string
@@ -45,11 +59,11 @@ class Path
             return $home;
         }
 
-        if (\defined('PHP_WINDOWS_VERSION_BUILD') && false !== ($home = \getenv('USERPROFILE'))) {
+        if (defined('PHP_WINDOWS_VERSION_BUILD') && false !== ($home = getenv('USERPROFILE'))) {
             return $home;
         }
 
-        if (\function_exists('posix_getuid') && \function_exists('posix_getpwuid')) {
+        if (function_exists('posix_getuid') && function_exists('posix_getpwuid')) {
             $info = posix_getpwuid(posix_getuid());
 
             return $info['dir'];
